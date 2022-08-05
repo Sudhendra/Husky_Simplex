@@ -1,4 +1,7 @@
 import numpy as np 
+import string
+from multipledispatch import dispatch
+import re
 
 STOPWORDS = ['those', 'on', 'own', '’ve', 'yourselves', 'around', 'between', 'four', 'been', 'alone', 'off', 'am', 'then', 'other', 'can', 'regarding', 'hereafter', 'front', 'too', 'used', 'wherein', '‘ll', 'doing', 'everything', 'up', 'onto', 'never', 'either', 'how', 'before', 'anyway', 'since', 'through', 'amount', 'now', 'he', 'was', 'have', 'into', 'because', 'not', 'therefore', 'they', 'n’t', 'even', 'whom', 'it', 'see', 'somewhere', 'thereupon', 'nothing', 'whereas', 'much', 'whenever', 'seem', 'until', 'whereby', 'at', 'also', 'some', 'last', 'than', 'get', 'already', 'our', 'once', 'will', 'noone', "'m", 'that', 'what', 'thus', 'no', 'myself', 'out', 'next', 'whatever', 'although', 'though', 'which', 'would', 'therein', 'nor', 'somehow', 'whereupon', 'besides', 'whoever', 'ourselves', 'few', 'did', 'without', 'third', 'anything', 'twelve', 'against', 'while', 'twenty', 'if', 'however', 'herself', 'when', 'may', 'ours', 'six', 'done', 'seems', 'else', 'call', 'perhaps', 'had', 'nevertheless', 'where', 'otherwise', 'still', 'within', 'its', 'for', 'together', 'elsewhere', 'throughout', 'of', 'others', 'show', '’s', 'anywhere', 'anyhow', 'as', 'are', 'the', 'hence', 'something', 'hereby', 'nowhere', 'latterly', 'say', 'does', 'neither', 'his', 'go', 'forty', 'put', 'their', 'by', 'namely', 'could', 'five', 'unless', 'itself', 'is', 'nine', 'whereafter', 'down', 'bottom', 'thereby', 'such', 'both', 'she', 'become', 'whole', 'who', 'yourself', 'every', 'thru', 'except', 'very', 'several', 'among', 'being', 'be', 'mine', 'further', 'n‘t', 'here', 'during', 'why', 'with', 'just', "'s", 'becomes', '’ll', 'about', 'a', 'using', 'seeming', "'d", "'ll", "'re", 'due', 'wherever', 'beforehand', 'fifty', 'becoming', 'might', 'amongst', 'my', 'empty', 'thence', 'thereafter', 'almost', 'least', 'someone', 'often', 'from', 'keep', 'him', 'or', '‘m', 'top', 'her', 'nobody', 'sometime', 'across', '‘s', '’re', 'hundred', 'only', 'via', 'name', 'eight', 'three', 'back', 'to', 'all', 'became', 'move', 'me', 'we', 'formerly', 'so', 'i', 'whence', 'under', 'always', 'himself', 'in', 'herein', 'more', 'after', 'themselves', 'you', 'above', 'sixty', 'them', 'your', 'made', 'indeed', 'most', 'everywhere', 'fifteen', 'but', 'must', 'along', 'beside', 'hers', 'side', 'former', 'anyone', 'full', 'has', 'yours', 'whose', 'behind', 'please', 'ten', 'seemed', 'sometimes', 'should', 'over', 'take', 'each', 'same', 'rather', 'really', 'latter', 'and', 'ca', 'hereupon', 'part', 'per', 'eleven', 'ever', '‘re', 'enough', "n't", 'again', '‘d', 'us', 'yet', 'moreover', 'mostly', 'one', 'meanwhile', 'whither', 'there', 'toward', '’m', "'ve", '’d', 'give', 'do', 'an', 'quite', 'these', 'everyone', 'towards', 'this', 'cannot', 'afterwards', 'beyond', 'make', 'were', 'whether', 'well', 'another', 'below', 'first', 'upon', 'any', 'none', 'many', 'serious', 'various', 're', 'two', 'less', '‘ve']
 
@@ -59,7 +62,86 @@ def join_stopwords(x):
     input_str = __modify(x)
     new_text = "".join(remove_stopwords(input_str))
     return new_text
+# Suddhendra's end 
 
+#Karans Part
+class Clean:
+
+    @dispatch(str)
+    def remove_punctuation(s):
+        c = ""
+        for i in s:
+            if i not in string.punctuation:
+                c+=i
+
+        return c
+
+    @dispatch(list)
+    def remove_punctuation(s):
+        for i in range(len(s)):
+            c = ""
+            for t in s[i]:
+                if t not in string.punctuation:
+                    c+=t
+            s[i] = c
+
+        return s
+
+    def stem(t):
+        l = []
+        for w in t:
+            if w.endswith('ical'):
+                l.append(w.replace('ical','ic'))
+
+            elif w.endswith('ies'):
+                l.append(w.replace('ies','y'))
+
+            elif w.endswith('eed'):
+                l.append(w.replace('eed','ee'))
+
+            elif w.endswith('sses'):
+                l.append(w.replace('sses','ss'))
+
+            elif w.endswith('ization'):
+                l.append(w.replace('ization','ize'))
+
+            elif w.endswith('ation'):
+                l.append(w.replace('ation','ate'))
+
+            elif w.endswith('or'):
+                l.append(w.replace('or','e'))
+
+            elif w.endswith('iveness'):
+                l.append(w.replace('iveness','ive'))
+
+            elif w.endswith('fulness'):
+                l.append(w.replace('fulness','ful'))
+
+            elif w.endswith('ousness'):
+                l.append(w.replace('ousness','ous'))
+
+            elif w.endswith('ality'):
+                l.append(w.replace('ality','al'))
+
+            elif w.endswith('ivity' or 'ability' or 'bility'):
+                l.append(re.sub('(ivity|ability|bility)$','',w))
+
+            elif w.endswith('cacy'):
+                l.append(w.replace('cacy','cate'))
+
+            elif w.endswith('icity'):
+                l.append(w.replace('icity','e'))
+
+            elif w.endswith('alize'):
+                l.append(w.replace('alize','al'))
+
+            elif w.endswith('ence' or 'er' or 'ize' or 'ent' or 'ible' or 'able' or 'ance' or 'ness' or 'less' or 'ship' or 'ing' or 'er' or 'ers' or 's' or 'ly' or 'ment' or 'al' or 'ed' or 'ance' or 'ful' or 'ism' or 'liness'):
+                l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|s|ers|ment|al|ed|ance|ful|ism|liness)$','',w))
+                
+        return l
+	
+
+## Nikhils Part 
 class Class_Vectorization:
     def __init__(self, input_str = None):
         
