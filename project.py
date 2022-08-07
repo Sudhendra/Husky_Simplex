@@ -186,7 +186,7 @@ class Class_Vectorization:
             
     def BOW_fit_transform(self):
         """
-        Creates a matric with strings as rows and words as columns. This array would consist of frequency of words present in each string. 
+        Creates a matrix with strings as rows and words as columns. This array would consist of frequency of words present in each string. 
         returns: A array with frequency of words.
         Usage: Vectorize.BOW_fit_transform() where Vectorize is an instance of Class_Vectorization class.
         """
