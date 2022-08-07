@@ -2,6 +2,8 @@ import numpy as np
 import string
 from multipledispatch import dispatch
 import re
+from collections import Counter
+from scipy.sparse import csr_matrix
 
 STOPWORDS = ['those', 'on', 'own', '’ve', 'yourselves', 'around', 'between', 'four', 'been', 'alone', 'off', 'am', 'then', 'other', 'can', 'regarding', 'hereafter', 'front', 'too', 'used', 'wherein', '‘ll', 'doing', 'everything', 'up', 'onto', 'never', 'either', 'how', 'before', 'anyway', 'since', 'through', 'amount', 'now', 'he', 'was', 'have', 'into', 'because', 'not', 'therefore', 'they', 'n’t', 'even', 'whom', 'it', 'see', 'somewhere', 'thereupon', 'nothing', 'whereas', 'much', 'whenever', 'seem', 'until', 'whereby', 'at', 'also', 'some', 'last', 'than', 'get', 'already', 'our', 'once', 'will', 'noone', "'m", 'that', 'what', 'thus', 'no', 'myself', 'out', 'next', 'whatever', 'although', 'though', 'which', 'would', 'therein', 'nor', 'somehow', 'whereupon', 'besides', 'whoever', 'ourselves', 'few', 'did', 'without', 'third', 'anything', 'twelve', 'against', 'while', 'twenty', 'if', 'however', 'herself', 'when', 'may', 'ours', 'six', 'done', 'seems', 'else', 'call', 'perhaps', 'had', 'nevertheless', 'where', 'otherwise', 'still', 'within', 'its', 'for', 'together', 'elsewhere', 'throughout', 'of', 'others', 'show', '’s', 'anywhere', 'anyhow', 'as', 'are', 'the', 'hence', 'something', 'hereby', 'nowhere', 'latterly', 'say', 'does', 'neither', 'his', 'go', 'forty', 'put', 'their', 'by', 'namely', 'could', 'five', 'unless', 'itself', 'is', 'nine', 'whereafter', 'down', 'bottom', 'thereby', 'such', 'both', 'she', 'become', 'whole', 'who', 'yourself', 'every', 'thru', 'except', 'very', 'several', 'among', 'being', 'be', 'mine', 'further', 'n‘t', 'here', 'during', 'why', 'with', 'just', "'s", 'becomes', '’ll', 'about', 'a', 'using', 'seeming', "'d", "'ll", "'re", 'due', 'wherever', 'beforehand', 'fifty', 'becoming', 'might', 'amongst', 'my', 'empty', 'thence', 'thereafter', 'almost', 'least', 'someone', 'often', 'from', 'keep', 'him', 'or', '‘m', 'top', 'her', 'nobody', 'sometime', 'across', '‘s', '’re', 'hundred', 'only', 'via', 'name', 'eight', 'three', 'back', 'to', 'all', 'became', 'move', 'me', 'we', 'formerly', 'so', 'i', 'whence', 'under', 'always', 'himself', 'in', 'herein', 'more', 'after', 'themselves', 'you', 'above', 'sixty', 'them', 'your', 'made', 'indeed', 'most', 'everywhere', 'fifteen', 'but', 'must', 'along', 'beside', 'hers', 'side', 'former', 'anyone', 'full', 'has', 'yours', 'whose', 'behind', 'please', 'ten', 'seemed', 'sometimes', 'should', 'over', 'take', 'each', 'same', 'rather', 'really', 'latter', 'and', 'ca', 'hereupon', 'part', 'per', 'eleven', 'ever', '‘re', 'enough', "n't", 'again', '‘d', 'us', 'yet', 'moreover', 'mostly', 'one', 'meanwhile', 'whither', 'there', 'toward', '’m', "'ve", '’d', 'give', 'do', 'an', 'quite', 'these', 'everyone', 'towards', 'this', 'cannot', 'afterwards', 'beyond', 'make', 'were', 'whether', 'well', 'another', 'below', 'first', 'upon', 'any', 'none', 'many', 'serious', 'various', 're', 'two', 'less', '‘ve']
 
@@ -139,7 +141,32 @@ class Clean:
                 l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|s|ers|ment|al|ed|ance|ful|ism|liness)$','',w))
                 
         return l
-	
+#Arya's Part	
+    @dispatch(str)
+    def remove_symbol(st):
+        """ 
+        Removes Symbols from a String 
+        Input: A String containing symbols
+        returns: A String without symbols
+        Usage: x.remove_symbol(String), where x is an instance of class Clean 
+        """
+        pattern = r"""[^A-Za-z0-9 ,.']+"""
+        st1 = re.sub(pattern,'',st)
+        return st1
+
+    @dispatch(list)
+    def remove_symbol(st):
+        """ 
+        Removes Symbols from all the Strings in the given list
+        Input: A list of Strings containing Symbols
+        returns: A List of Strings without symbols
+        Usage: x.remove_symbol(List), where x is an instance of class Clean 
+        """
+        st1 = []
+        for x in range(len(st)):
+            pattern = r"""[^A-Za-z0-9 ,.']+"""
+            st1.append(re.sub(pattern,'',st[x]))
+        return st1
 
 ## Nikhils Part 
 class Class_Vectorization:
@@ -184,7 +211,7 @@ class Class_Vectorization:
     
     def BOW_transform(self, test_str):        
         """
-        Creates a matric with strings as rows and words as columns.The list of words is generated using the values passed while creating the object.
+        Creates a matrix with strings as rows and words as columns.The list of words is generated using the values passed while creating the object.
         This array would consist of frequency of words which is present in the list of words and input string. 
         Input - A string of list 
         returns: A array with frequency of words.
@@ -214,3 +241,38 @@ class Class_Vectorization:
                 j+=1
             i+=1
         return array
+#Arya's Part
+    def fit(data):
+        unique = set()
+        for sent in data:
+            for word in sent.split(' '):
+                if len(word) >= 2:
+                    unique.add(word)
+
+        vocab = {}
+        for index,word in enumerate(sorted(list(unique))):
+            vocab[word] = index
+        return vocab
+
+
+    def custom_trans(data):
+        """
+        Creates an matrix containing count of words in a string, i.e Vectorization of text based on term frequency
+        Input: A List of strings
+        Returns: A matrix containing vectorization of text, where no of rows are the sentences and columns are unique words present in all the Strings.
+        Usage: Vectorize.custom_trans(data), where Vectorize is instance of class
+        """
+        data = [x.lower() for x in data]
+        vocab = fit(data)
+        row,col,val = [],[],[]
+        for ind,sent in enumerate(data):
+            count_word = dict(Counter(sent.split(' ')))
+            for word,count in count_word.items():
+                if len(word) >= 2:
+                    col_index = vocab.get(word)
+                    if col_index >=0:
+                        row.append(ind)
+                        col.append(col_index)
+                        val.append(count)
+        x = csr_matrix((val, (row,col)), shape=(len(data),len(vocab))).toarray() #Creating Sparse Matrix Representation for Count Vectorization
+        return x
