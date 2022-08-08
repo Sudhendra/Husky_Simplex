@@ -258,7 +258,7 @@ class Class_Vectorization:
             i+=1
         return array
 #Arya's Part
-    def fit(data):
+    def cvfit(data):
         unique = set()
         for sent in data:
             for word in sent.split(' '):
@@ -271,7 +271,7 @@ class Class_Vectorization:
         return vocab
 
 
-    def custom_trans(data):
+    def cv_trans(data):
         """
         Creates an matrix containing count of words in a string, i.e Vectorization of text based on term frequency
         Input: A List of strings
