@@ -45,7 +45,7 @@ def word_counter(x):
         dictionary[word] = len(index)
     return dictionary
     
-def remove_stopwords(x):
+def remove_stopwords(x): 
     """
     Removes stopwords from a string.
     returns: A list type, containing tokens with the stopwords removed
@@ -186,7 +186,7 @@ class Clean:
         return st1
 
 ## Nikhils Part 
-class Class_Vectorization:
+class Vectorizer:
     def __init__(self, input_str = None):
         
         self.input_str = input_str
@@ -205,7 +205,7 @@ class Class_Vectorization:
         """
         Creates a matrix with strings as rows and words as columns. This array would consist of frequency of words present in each string. 
         returns: A array with frequency of words.
-        Usage: Vectorize.BOW_fit_transform() where Vectorize is an instance of Class_Vectorization class.
+        Usage: Vectorize.BOW_fit_transform() where Vectorize is an instance of Vectorizer class.
         """
 
         array = np.zeros((len(self.input_str),len(self.vocab)), dtype = int)
@@ -232,7 +232,7 @@ class Class_Vectorization:
         This array would consist of frequency of words which is present in the list of words and input string. 
         Input - A string of list 
         returns: A array with frequency of words.
-        Usage: Vectorize.BOW_transform(input) where Vectorize is an instance of Class_Vectorization class.
+        Usage: Vectorize.BOW_transform(input) where Vectorize is an instance of Vectorizer class.
         """
         
         if (type(test_str) == tuple )or (type(test_str) == str ):
@@ -370,7 +370,7 @@ class Class_Vectorization:
         """
         Calculates Tf (Term-frequency) - Idf (Inverse Document-Frequency)
         Output : Tf-Idf matrix
-        Usage : Vectorize.tfIdfVectorization() where Vectorize is an instance of Class_Vectorization class
+        Usage : Vectorize.tfIdfVectorization() where Vectorize is an instance of Vectorizer class
         """
         wordDict = []
         tf = []
