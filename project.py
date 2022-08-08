@@ -165,7 +165,7 @@ class Clean:
         Removes Symbols from a String 
         Input: A String containing symbols
         returns: A String without symbols
-        Usage: x.remove_symbol(String), where x is an instance of class Clean 
+        Usage: ObjectName.remove_symbol(String), where x is an instance of class Clean 
         """
         pattern = r"""[^A-Za-z0-9 ,.']+"""
         st1 = re.sub(pattern,'',st)
@@ -177,7 +177,7 @@ class Clean:
         Removes Symbols from all the Strings in the given list
         Input: A list of Strings containing Symbols
         returns: A List of Strings without symbols
-        Usage: x.remove_symbol(List), where x is an instance of class Clean 
+        Usage: ObjectName.remove_symbol(List), where x is an instance of class Clean 
         """
         st1 = []
         for x in range(len(st)):
@@ -205,7 +205,7 @@ class Vectorizer:
         """
         Creates a matrix with strings as rows and words as columns. This array would consist of frequency of words present in each string. 
         returns: A array with frequency of words.
-        Usage: Vectorize.BOW_fit_transform() where Vectorize is an instance of Vectorizer class.
+        Usage: ObjectName.BOW_fit_transform() where Vectorize is an instance of Vectorizer class.
         """
 
         array = np.zeros((len(self.input_str),len(self.vocab)), dtype = int)
@@ -232,7 +232,7 @@ class Vectorizer:
         This array would consist of frequency of words which is present in the list of words and input string. 
         Input - A string of list 
         returns: A array with frequency of words.
-        Usage: Vectorize.BOW_transform(input) where Vectorize is an instance of Vectorizer class.
+        Usage: ObjectName.BOW_transform(input) where Vectorize is an instance of Vectorizer class.
         """
         
         if (type(test_str) == tuple )or (type(test_str) == str ):
@@ -277,7 +277,7 @@ class Vectorizer:
         Creates an matrix containing count of words in a string, i.e Vectorization of text based on term frequency
         Input: A List of strings
         Returns: A matrix containing vectorization of text, where no of rows are the sentences and columns are unique words present in all the Strings.
-        Usage: Vectorize.custom_trans(data), where Vectorize is instance of class
+        Usage: ObjectName.custom_trans(data), where Vectorize is instance of class
         """
         data = [x.lower() for x in data]
         vocab = fit(data)
@@ -296,13 +296,17 @@ class Vectorizer:
 
 
 #Harshal's part    
-    def preprocessingCorpus(self, corpus):
+    def __preprocessingCorpus(self, corpus, test_str = None):
         """
         Preprocesses the input like tokenization, stop word removal
         Input : A list of string
         Output : A dictionary with word count 
         """
-        combCorpus = ' '.join(self.input_str)
+        if(test_str == None):
+            combCorpus = ' '.join(self.input_str)
+        else:
+            combCorpus = ' '.join(test_str)
+
         word = Word(combCorpus)
         corpus_split = word.tokenize()       
         corpus_processed = word.remove_stopwords()
@@ -321,7 +325,7 @@ class Vectorizer:
         return wordDict
 
 
-    def calculateTF(self, corpus):
+    def __calculateTF(self, corpus, test_str = None):
         """
         Calculates Term-frequency 
         Input : A string
@@ -331,7 +335,7 @@ class Vectorizer:
         word = Word(corpus)
         corpus_split = word.tokenize()
 
-        wordDict = Vectorization.preprocessingCorpus(self, corpus)
+        wordDict = Vectorizer.__preprocessingCorpus(self, corpus, test_str)
 
         wordCount = len(corpus_split)
         wordTf = {}
@@ -342,7 +346,7 @@ class Vectorizer:
         return(wordTf)   
 
 
-    def calculateIDF(self, corpus):
+    def __calculateIDF(self, corpus, test_str = None):
         """
         Calculates Inverse Document-Frequency
         Input : A dictionary
@@ -354,11 +358,18 @@ class Vectorizer:
 
         wordDf = dict.fromkeys(corpus[0].keys(), 0)
 
+        if(test_str == None):
+            inputStr = self.input_str
+            inputSize = len(self.input_str)
+        else:
+            inputStr = test_str
+            inputSize = len(test_str)
+                   
         for word in wordDf:
             df = 0
  
-            for i in range(len(self.input_str)):
-                if word in self.input_str[i].split():
+            for i in range(inputSize):
+                if word in inputStr[i].split():
                     df += 1
    
             wordIdf[word] = math.log10(N / df )       
@@ -366,11 +377,11 @@ class Vectorizer:
         return wordIdf    
 
 
-    def tfIdfVectorization(self):
+    def tfIdf_fit_transform(self):
         """
-        Calculates Tf (Term-frequency) - Idf (Inverse Document-Frequency)
+        Calculates Tf (Term-frequency) - Idf (Inverse Document-Frequency). The tf-idf is calculated using the values passed while creating the object.
         Output : Tf-Idf matrix
-        Usage : Vectorize.tfIdfVectorization() where Vectorize is an instance of Vectorizer class
+        Usage : ObjectName.tfIdfVectorization() where Vectorize is an instance of Class_Vectorization class
         """
         wordDict = []
         tf = []
@@ -379,10 +390,10 @@ class Vectorizer:
 
         for i in range(len(self.input_str)):
             sent = self.input_str[i]
-            tf.append(Vectorization.calculateTF(self, sent))
-            wordDict.append(Vectorization.preprocessingCorpus(self, sent))
+            tf.append( Vectorizer.__calculateTF(self, sent))
+            wordDict.append(Vectorizer.__preprocessingCorpus(self, sent))
 
-        idf = Vectorization.calculateIDF(self, wordDict)
+        idf = Vectorizer.__calculateIDF(self, wordDict)
 
         for i in range(len(self.input_str)):
             tfIdf = {}
@@ -393,4 +404,45 @@ class Vectorizer:
 
         output = pd.DataFrame(tfIDfList)
 
-        return output                  
+        return output    
+
+
+    def tfIdf_transform(self, test_str):
+        """
+        Calculates Tf (Term-frequency) - Idf (Inverse Document-Frequency). The tf-idf is calculated using the values passed.
+        Output : Tf-Idf matrix
+        Usage : ObjectName.tfIdfVectorization() where Vectorize is an instance of Class_Vectorization class
+        """
+        
+        if (type(test_str) == tuple )or (type(test_str) == str ):
+            
+            if type(test_str) == tuple:
+                test_str = list(test_str)
+                
+            else:
+                test_str = test_str.split(". ")
+
+
+        wordDict = []
+        tf = []
+        idf = {}  
+        tfIDfList = []
+
+        for i in range(len(test_str)):
+            sent = test_str[i]
+            print(sent)
+            tf.append(Vectorizer.__calculateTF(self, sent, test_str))
+            wordDict.append(Vectorizer.__preprocessingCorpus(self, sent, test_str))
+
+        idf = Vectorizer.__calculateIDF(self, wordDict, test_str)
+
+        for i in range(len(test_str)):
+            tfIdf = {}
+            for word, value in tf[i].items():
+                tfIdf[word] = value * idf[word]
+   
+            tfIDfList.append(tfIdf)    
+
+        output = pd.DataFrame(tfIDfList)
+
+        return output
