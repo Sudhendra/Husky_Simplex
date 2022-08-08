@@ -71,6 +71,11 @@ class Clean:
 
     @dispatch(str)
     def remove_punctuation(s):
+        """
+        1) To remove punctuations from string.
+        2) s: string input parameter
+        3) returns string with no punctuations.
+        """
         c = ""
         for i in s:
             if i not in string.punctuation:
@@ -80,6 +85,11 @@ class Clean:
 
     @dispatch(list)
     def remove_punctuation(s):
+        """
+        1) To remove punctuations from a list of strings.
+        2) s: list input parameter
+        3) returns list of strings with no punctuation.
+        """
         for i in range(len(s)):
             c = ""
             for t in s[i]:
@@ -90,6 +100,11 @@ class Clean:
         return s
 
     def stem(t):
+        """
+        1) To remove tense and grammatical suffixes from words.
+        2) t: A list of strings. Input parameter.
+        3) returns list of strings that have been stemmed.
+        """
         l = []
         for w in t:
             if w.endswith('ical'):
