@@ -276,3 +276,104 @@ class Class_Vectorization:
                         val.append(count)
         x = csr_matrix((val, (row,col)), shape=(len(data),len(vocab))).toarray() #Creating Sparse Matrix Representation for Count Vectorization
         return x
+
+
+#Harshal's part    
+    def preprocessingCorpus(self, corpus):
+        """
+        Preprocesses the input like tokenization, stop word removal
+        Input : A list of string
+        Output : A dictionary with word count 
+        """
+        combCorpus = ' '.join(self.input_str)
+        word = Word(combCorpus)
+        corpus_split = word.tokenize()       
+        corpus_processed = word.remove_stopwords()
+        corpus_processed = set(corpus_processed)
+
+        sent = Word(corpus)
+        sentSplit = sent.tokenize()       
+        sentProcessed = sent.remove_stopwords()
+        sentProcessed = set(sentProcessed)
+
+        wordDict = dict.fromkeys(corpus_processed, 0)
+
+        for word in sentProcessed:
+            wordDict[word]+=1
+
+        return wordDict
+
+
+    def calculateTF(self, corpus):
+        """
+        Calculates Term-frequency 
+        Input : A string
+        Output : A dictionary containing Term-Frequency
+        
+        """
+        word = Word(corpus)
+        corpus_split = word.tokenize()
+
+        wordDict = Vectorization.preprocessingCorpus(self, corpus)
+
+        wordCount = len(corpus_split)
+        wordTf = {}
+
+        for word in wordDict.keys():
+            wordTf[word] = wordDict[word] / float(wordCount)
+
+        return(wordTf)   
+
+
+    def calculateIDF(self, corpus):
+        """
+        Calculates Inverse Document-Frequency
+        Input : A dictionary
+        Output : A dictionary containing Inverse Document-Frequency
+        """
+        wordDf = {}
+        wordIdf = {}
+        N = len(corpus)
+
+        wordDf = dict.fromkeys(corpus[0].keys(), 0)
+
+        for word in wordDf:
+            df = 0
+ 
+            for i in range(len(self.input_str)):
+                if word in self.input_str[i].split():
+                    df += 1
+   
+            wordIdf[word] = math.log10(N / df )       
+
+        return wordIdf    
+
+
+    def tfIdfVectorization(self):
+        """
+        Calculates Tf (Term-frequency) - Idf (Inverse Document-Frequency)
+        Output : Tf-Idf matrix
+        Usage : Vectorize.tfIdfVectorization() where Vectorize is an instance of Class_Vectorization class
+        """
+        wordDict = []
+        tf = []
+        idf = {}  
+        tfIDfList = []
+
+        for i in range(len(self.input_str)):
+            sent = self.input_str[i]
+            tf.append(Vectorization.calculateTF(self, sent))
+            wordDict.append(Vectorization.preprocessingCorpus(self, sent))
+
+        idf = Vectorization.calculateIDF(self, wordDict)
+
+        for i in range(len(self.input_str)):
+            tfIdf = {}
+            for word, value in tf[i].items():
+                tfIdf[word] = value * idf[word]
+   
+            tfIDfList.append(tfIdf)    
+
+        output = pd.DataFrame(tfIDfList)
+
+        return output                  
