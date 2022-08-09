@@ -79,8 +79,11 @@ class Clean:
         """
         c = ""
         for i in s:
-            if i not in string.punctuation:
-                c+=i
+            if i == '/':
+                c+=" " 
+          
+            elif i not in string.punctuation:
+                c+=i                    
 
         return c
 
@@ -94,7 +97,9 @@ class Clean:
         for i in range(len(s)):
             c = ""
             for t in s[i]:
-                if t not in string.punctuation:
+                if t == '/':
+                    c+=" "
+                elif t not in string.punctuation:
                     c+=t
             s[i] = c
 
