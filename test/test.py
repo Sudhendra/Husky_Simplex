@@ -18,8 +18,8 @@ if __name__ == "__main__":
     print('Removed Punctation from input --','\t',x)
     print('\n')
     
-    ''' below part will be operation only when suddhendras code is complete
-        also input arr will be changes accordingly'''
+    ''' below part will be operational only when suddhendras code is complete,
+        also input arr will be changed accordingly'''
     # w = Word(c)
     # w = w.join_stopwords()
     # print('Removed stopwords from input --','\t',w) 
