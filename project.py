@@ -63,7 +63,7 @@ def join_stopwords(x):
     Usage: string.join_stopwords() where string is an instance of Word class.
     """
     input_str = __modify(x)
-    new_text = "".join(remove_stopwords(input_str))
+    new_text = " ".join(remove_stopwords(input_str))
     return new_text
 # Suddhendra's end 
 
