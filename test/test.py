@@ -1,4 +1,5 @@
-from project import * 
+from project import *
+from copy import copy
 
 def Bag_of_Words_testing(b):  
     bow_ftransform = Vectorizer(b)
