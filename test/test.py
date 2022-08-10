@@ -14,6 +14,46 @@ def count_vector_testing(data):
     result = np.testing.assert_array_equal(bow_vector.cv_trans(data),out)
     return result
 
+def TfIdf_fTransform_testing(input_str):  
+    
+    tfIdf_ftransform = Vectorizer(input_str)
+    testList = [{'best': 0.0, 'pizza': 0.07952020911994373, 'people': 0.0, 'good': 0.0, 'loves': 0.07952020911994373, 'person': 0.0, 'delicious': 0.07952020911994373}, 
+        {'best': 0.0, 'pizza': 0.0, 'people': 0.0, 'good': 0.03521825181113625, 'loves': 0.0, 'person': 0.09542425094393249, 'delicious': 0.0}, 
+        {'best': 0.07952020911994373, 'pizza': 0.0, 'people': 0.07952020911994373, 'good': 0.029348543175946873, 'loves': 0.0, 'person': 0.0, 'delicious': 0.0}]
+    sortedDict = []    
+    for d in testList:            
+        sortedDict.append(dict( sorted(d.items(), key=lambda x: x[0].lower()) )) 
+
+    expectedOutputDF = pd.DataFrame(sortedDict)
+
+    pd.testing.assert_frame_equal(tfIdf_ftransform.tfIdf_fit_transform(),expectedOutputDF, check_dtype=False)
+    boolResult = expectedOutputDF.equals(tfIdf_ftransform.tfIdf_fit_transform())
+
+    if(boolResult == True):
+        return "Pass"
+    else:
+        return "Fail"    
+
+def TfIdf_transform_testing(input_str):  
+
+    tfIdf_ftransform = Vectorizer()
+    testList = [{'best': 0.0, 'pizza': 0.07952020911994373, 'people': 0.0, 'good': 0.0, 'loves': 0.07952020911994373, 'person': 0.0, 'delicious': 0.07952020911994373}, 
+        {'best': 0.0, 'pizza': 0.0, 'people': 0.0, 'good': 0.03521825181113625, 'loves': 0.0, 'person': 0.09542425094393249, 'delicious': 0.0}, 
+        {'best': 0.07952020911994373, 'pizza': 0.0, 'people': 0.07952020911994373, 'good': 0.029348543175946873, 'loves': 0.0, 'person': 0.0, 'delicious': 0.0}]
+    sortedDict = []    
+    for d in testList:            
+        sortedDict.append(dict( sorted(d.items(), key=lambda x: x[0].lower()) )) 
+
+    expectedOutputDF = pd.DataFrame(sortedDict)
+
+    pd.testing.assert_frame_equal(tfIdf_ftransform.tfIdf_transform(input_str),expectedOutputDF, check_dtype=False)
+    boolResult = expectedOutputDF.equals(tfIdf_ftransform.tfIdf_transform(input_str))
+
+    if(boolResult == True):
+        return "Pass"
+    else:
+        return "Fail"    
+
 if __name__ == "__main__":  
     
     c = Clean()
@@ -48,3 +88,11 @@ if __name__ == "__main__":
     result = Bag_of_Words_testing(c)
     if result == None:
         print("Everything is correct")  
+        
+    TfIdf_fTransform_result = TfIdf_fTransform_testing(out)
+    if TfIdf_fTransform_result == "Pass":
+        print("Tf-Idf values are correct")
+        
+    TfIdf_transform_result = TfIdf_transform_testing(out)
+    if TfIdf_transform_result == "Pass":
+        print("Tf-Idf values are correct")        
