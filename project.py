@@ -464,10 +464,14 @@ class Vectorizer:
             for word, value in tf[i].items():
                 tfIdf[word] = value * idf[word]
    
-            tfIDfList.append(tfIdf)    
+            tfIDfList.append(tfIdf)  
+    
+        sortedList = []    
+        for d in tfIDfList:            
+            sortedList.append(dict( sorted(d.items(), key=lambda x: x[0].lower()) )) 
 
-        output = pd.DataFrame(tfIDfList)
-
+        output = pd.DataFrame(sortedList)
+        
         return output    
 
 
@@ -507,6 +511,10 @@ class Vectorizer:
    
             tfIDfList.append(tfIdf)    
 
-        output = pd.DataFrame(tfIDfList)
+        sortedList = []    
+        for d in tfIDfList:            
+            sortedList.append(dict( sorted(d.items(), key=lambda x: x[0].lower()) )) 
+
+        output = pd.DataFrame(sortedList)
 
         return output
