@@ -13,19 +13,30 @@ def count_vector_testing(data):
     out = CountVectorizer().fit_transform(data).toarray()
     result = np.testing.assert_array_equal(bow_vector.cv_trans(data),out)
     return result
+
 if __name__ == "__main__":  
     
     c = Clean()
-    x = c.remove_symbol(['She loves pizza&%^$, pizza is ^*&delicious',
-                              'She is a good pers%£%^on',
-                              'good people%..... are%£ the best are'])
-    print('Removed Symbol from input --','\t',x)
+    sample = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory malfunction. The neighbours got%£ some pizza, enjoying it without electrical assistance..........'
+    print('Sample input:', '\t', sample)
     print('\n')
-    out = c.remove_punctuation(['She loves pizza, pizza is delicious',
-                              'She is a good person',
-                              'good people..... are the best are'])
-    print('Removed Punctation from input --','\t',out)
-    print('\n')   
+    
+    x = c.remove_symbol(sample)
+    print('Removed symbols from input:','\t', x)
+    print('\n')
+    
+    out = c.remove_punctuation(x)
+    print('Removed punctations from input:','\t', out)
+    print('\n')
+    
+    pre = c.stem(out)
+    print('Removed Stemming:', '\t', pre)
+    print('\n')
+    
+    f = c.join_stopwords(pre)
+    print('Removed stop words:', '\t', f)
+    print('\n')
+   
     ''' below part will be operational only when suddhendras code is complete,
         also input arr will be changed accordingly'''
     # w = Word(c)
