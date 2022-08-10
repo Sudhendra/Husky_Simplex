@@ -53,13 +53,56 @@ def TfIdf_transform_testing(input_str):
         return "Pass"
     else:
         return "Fail"    
+    
+def test_WordClass(sample1, sample2):
+    # testing for sample 1. 
+    # type(sample1) == str
+    expectedTokens1 = ['She', 'is', 'a', 'good', 'person,', 'and', 'she', 'loves', 'pizza@#$%,', "that's", 'probably', 'because', 'of', 'her', 'intestinal^*&', 'prerogatory', 
+    'transformation.', 'The', 'neighbours', 'got%£', 'some', 'pizza,', 'enjoying', 'it', 'without', 'electrical', 'assistance..........']
+    expectedCount1 = [['She', 1], ['is', 1], ['a', 1], ['good', 1], ['person,', 1], ['and', 1], ['she', 1], ['loves', 1], ['pizza@#$%,', 1], ["that's", 1], ['probably', 1], 
+    ['because', 1], ['of', 1], ['her', 1], ['intestinal^*&', 1], ['prerogatory', 1], ['transformation.', 1], ['The', 1], ['neighbours', 1], ['got%£', 1], ['some', 1], ['pizza,', 1], ['enjoying', 1], ['it', 1], ['without', 1], ['electrical', 1], ['assistance..........', 1]]
+    expectedStopW1 = [['good', 'person,', 'loves', 'pizza@#$%,', "that's", 'probably', 'intestinal^*&', 'prerogatory', 'transformation'], ['neighbours', 'got%£', 'pizza,', 'enjoying', 'electrical', 'assistance']]
+    expectedJoinW1 = ["goodperson,lovespizza@#$%,that'sprobablyintestinal^*&prerogatorytransformation", 'neighboursgot%£pizza,enjoyingelectricalassistance']
+    word = Word(sample1)
+    assert word.tokenize() == expectedTokens1
+    assert word.word_counter() == expectedCount1
+    assert word.remove_stopwords() == expectedStopW1
+    assert word.join_stopwords() == expectedJoinW1
+
+    # testing for sample 2
+    # type(sample2) == list 
+    expectedTokens2 = ['This', 'is', 'hell', '&', 'the', 'rest', 'is', 
+    'all', 'pizza.', "Tesla's", 'next', 'GigaFactory', 'location', 'may', 'have', 'been', 'revealed.']
+    expectedCount2 = [['This', 1], ['is', 2], ['hell', 1], ['&', 1], ['the', 1], ['rest', 1], ['all', 1], ['pizza.', 1], ["Tesla's", 1], 
+    ['next', 1], ['GigaFactory', 1], ['location', 1], ['may', 1], ['have', 1], ['been', 1], ['revealed.', 1]]
+    expectedStopW2 = [['hell', '&', 'rest', 'pizza.'], ["Tesla's", 'GigaFactory', 'location', 'revealed.']]
+    expectedJoinW2 = ['hell&restpizza.', "Tesla'sGigaFactorylocationrevealed."]
+
+    word2 = Word(sample2)
+    assert word2.tokenize() == expectedTokens2
+    assert word2.word_counter() == expectedCount2
+    assert word2.remove_stopwords() == expectedStopW2
+    assert word2.join_stopwords() == expectedJoinW2
+
+    # testing STOPWORD helper functions
+    stopwords_copy1 = copy(word.STOPWORDS)
+    stopwords_copy2 = copy(word2.STOPWORDS)
+    extendedWords = stopwords_copy1.append('extended')
+    removedWords = stopwords_copy2.remove('afterwards')
+
+    assert word.extend_words('extended') == extendedWords
+    assert word2.remove_words('afterwards') == removedWords
 
 if __name__ == "__main__":  
-    
     c = Clean()
     sample = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance..........'
     print('Sample input:', '\t', sample)
     print('\n')
+    
+    # testing Word Class
+    sample2 = ["This is hell & the rest is all pizza.", "Tesla's next GigaFactory location may have been revealed."]
+    test_WordClass(sample, sample2)
+    print("Testing Word class successful!\n Moving forward to Clean class...")
     
     x = c.remove_symbol(sample)
     print('Removed symbols from input:','\t', x)
