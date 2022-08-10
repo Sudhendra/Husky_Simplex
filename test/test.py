@@ -17,7 +17,7 @@ def count_vector_testing(data):
 if __name__ == "__main__":  
     
     c = Clean()
-    sample = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory malfunction. The neighbours got%£ some pizza, enjoying it without electrical assistance..........'
+    sample = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance..........'
     print('Sample input:', '\t', sample)
     print('\n')
     
