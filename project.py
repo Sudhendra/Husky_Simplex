@@ -260,10 +260,10 @@ class Vectorizer:
             
         elif type(self.input_str) == str:
             self.input_str = self.input_str.split(". ")
-            
+       
         word = Word(self.input_str)
-        dictionary = word.word_counter()
-        self.vocab = np.array(list(dictionary.keys()))
+        List_Keys_values = word.word_counter()
+        self.vocab  = np.array(List_Keys_values)[:,0]
             
     def BOW_fit_transform(self):
         """
