@@ -248,8 +248,18 @@ class Clean:
             pattern = r"""[^A-Za-z0-9 ,.']+"""
             st1.append(re.sub(pattern,'',st[x]))
         return st1
-
 ## Nikhils Part 
+def BOW_remove_stopwords_punctuation(input_str):
+    
+    c = Clean()
+    symbol_removed = c.remove_symbol(input_str)
+    punctuation_removed = c.remove_punctuation(symbol_removed)
+    
+    w = Word(punctuation_removed)
+    stopwords_removed = w.join_stopwords()  
+    
+    return stopwords_removed 
+
 class Vectorizer:
     def __init__(self, input_str = None):
         
@@ -260,7 +270,9 @@ class Vectorizer:
             
         elif type(self.input_str) == str:
             self.input_str = self.input_str.split(". ")
-       
+            
+        self.input_str = BOW_remove_stopwords_punctuation(self.input_str)
+        
         word = Word(self.input_str)
         List_Keys_values = word.word_counter()
         self.vocab  = np.array(List_Keys_values)[:,0]
@@ -268,6 +280,7 @@ class Vectorizer:
     def BOW_fit_transform(self):
         """
         Creates a matrix with strings as rows and words as columns. This array would consist of frequency of words present in each string. 
+        Before creating matrix the input will be passsed through BOW_remove_stopwords_punctuation function to remove symbols, punctuations and stopwords.
         returns: A array with frequency of words.
         Usage: ObjectName.BOW_fit_transform() where Vectorize is an instance of Vectorizer class.
         """
@@ -282,6 +295,8 @@ class Vectorizer:
             j = 0
             for word in self.vocab:
                 index = np.where(sentence == word)
+                index = np.array(index)
+                index = index.flatten()
                 if np.size(index)==0:
                     array[i][j]=0
                 else:
@@ -293,6 +308,7 @@ class Vectorizer:
     def BOW_transform(self, test_str):        
         """
         Creates a matrix with strings as rows and words as columns.The list of words is generated using the values passed while creating the object.
+        Before creating matrix the input will be passsed through BOW_remove_stopwords_punctuation function to remove symbols, punctuations and stopwords.
         This array would consist of frequency of words which is present in the list of words and input string. 
         Input - A string of list 
         returns: A array with frequency of words.
@@ -307,6 +323,8 @@ class Vectorizer:
             else:
                 test_str = test_str.split(". ")
                 
+        test_str = BOW_remove_stopwords_punctuation(test_str)
+                
         array = np.zeros((len(test_str),len(self.vocab)), dtype = int)
         i = 0
         for sentence in test_str:
@@ -315,6 +333,8 @@ class Vectorizer:
             j = 0
             for word in self.vocab:
                 index = np.where(sentence == word)
+                index = np.array(index)
+                index = index.flatten()
                 if np.size(index)==0:
                     array[i][j]=0
                 else:
@@ -322,6 +342,7 @@ class Vectorizer:
                 j+=1
             i+=1
         return array
+    
 #Arya's Part
     def cvfit(data):
         unique = set()
