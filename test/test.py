@@ -63,7 +63,7 @@ def test_WordClassString(sample1):
     expectedCount1 = [['She', 1], ['is', 1], ['a', 1], ['good', 1], ['person,', 1], ['and', 1], ['she', 1], ['loves', 1], ['pizza@#$%,', 1], ["that's", 1], ['probably', 1], 
     ['because', 1], ['of', 1], ['her', 1], ['intestinal^*&', 1], ['prerogatory', 1], ['transformation.', 1], ['The', 1], ['neighbours', 1], ['got%£', 1], ['some', 1], ['pizza,', 1], ['enjoying', 1], ['it', 1], ['without', 1], ['electrical', 1], ['assistance..........', 1]]
     expectedStopW1 = [['good', 'person,', 'loves', 'pizza@#$%,', "that's", 'probably', 'intestinal^*&', 'prerogatory', 'transformation'], ['neighbours', 'got%£', 'pizza,', 'enjoying', 'electrical', 'assistance']]
-    expectedJoinW1 = ["goodperson,lovespizza@#$%,that'sprobablyintestinal^*&prerogatorytransformation", 'neighboursgot%£pizza,enjoyingelectricalassistance']
+    expectedJoinW1 = ["good person, loves pizza@#$%, that's probably intestinal^*& prerogatory transformation", 'neighbours got%£ pizza, enjoying electrical assistance']
     word = Word(sample1)
     assert word.tokenize() == expectedTokens1
     assert word.word_counter() == expectedCount1
@@ -78,7 +78,7 @@ def test_WordClassList(sample2):
     expectedCount2 = [['This', 1], ['is', 2], ['hell', 1], ['&', 1], ['the', 1], ['rest', 1], ['all', 1], ['pizza.', 1], ["Tesla's", 1], 
     ['next', 1], ['GigaFactory', 1], ['location', 1], ['may', 1], ['have', 1], ['been', 1], ['revealed.', 1]]
     expectedStopW2 = [['hell', '&', 'rest', 'pizza.'], ["Tesla's", 'GigaFactory', 'location', 'revealed.']]
-    expectedJoinW2 = ['hell&restpizza.', "Tesla'sGigaFactorylocationrevealed."]
+    expectedJoinW2 = ['hell & rest pizza.', "Tesla's GigaFactory location revealed."]
 
     word2 = Word(sample2)
     assert word2.tokenize() == expectedTokens2
