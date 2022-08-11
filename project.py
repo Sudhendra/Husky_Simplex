@@ -122,7 +122,7 @@ class Word:
         words = self.remove_stopwords()
         new_text = []
         for each in words:
-            new_text.append("".join(each))
+            new_text.append(" ".join(each))
         return new_text
 # Sudhendra's end 
 
