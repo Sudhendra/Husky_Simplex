@@ -252,7 +252,7 @@ class Clean:
 ## Nikhils Part 
 def BOW_remove_stopwords_punctuation(input_str):
     """
-    Removes symbol, punctuation and stopwords from input of Bag of words fit transform and transform methods of calss vectorization
+    Removes symbol, punctuation and stopwords from input of calss vectorization
     Input: takes list as input 
     returns: A list of string without punctuation, symbol and stopwords
     """  
