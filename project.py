@@ -163,17 +163,16 @@ class Clean:
             s[i] = c
 
         return s
-
-    def stem(self,t):
+    
+    @dispatch(list)
+    def stem(t):
         """
         1) To remove tense and grammatical suffixes from words.
         2) t: A list of strings. Input parameter.
         3) returns list of strings that have been stemmed.
         """
         l = []
-        ww = Word(t)
-        inp = ww.tokenize()
-        for w in inp:
+        for w in t:
             if w.endswith('ical'):
                 l.append(w.replace('ical','ic'))
 
@@ -207,7 +206,7 @@ class Clean:
             elif w.endswith('ality'):
                 l.append(w.replace('ality','al'))
 
-            elif w.endswith('ivity' or 'ability' or 'bility'):
+            elif w.endswith('ivity') or w.endswith('bility') or w.endswith('ability'):
                 l.append(re.sub('(ivity|ability|bility)$','',w))
 
             elif w.endswith('cacy'):
@@ -219,8 +218,8 @@ class Clean:
             elif w.endswith('alize'):
                 l.append(w.replace('alize','al'))
 
-            elif w.endswith('ence' or 'er' or 'ize' or 'ent' or 'ible' or 'able' or 'ance' or 'ness' or 'less' or 'ship' or 'ing' or 'er' or 'ers' or 's' or 'ly' or 'ment' or 'al' or 'ed' or 'ance' or 'ful' or 'ism' or 'liness'):
-                l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|s|ers|ment|al|ed|ance|ful|ism|liness)$','',w))
+            elif w.endswith('ence') or w.endswith('er') or w.endswith('ize') or w.endswith('ent') or w.endswith('ible') or w.endswith('able') or w.endswith('ance') or w.endswith('ness') or w.endswith('less') or w.endswith('ship') or w.endswith('ing') or w.endswith('er') or w.endswith('ers')  or w.endswith('ly') or w.endswith('ment') or w.endswith('al') or w.endswith('ed') or w.endswith('ance') or w.endswith('ful') or w.endswith('ism') or w.endswith('liness'):
+                l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|ers|ment|al|ed|ance|ful|ism|liness)$','',w))
                 
             else:
                 l.append(w)
