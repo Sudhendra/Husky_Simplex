@@ -222,6 +222,9 @@ class Clean:
             elif w.endswith('ence' or 'er' or 'ize' or 'ent' or 'ible' or 'able' or 'ance' or 'ness' or 'less' or 'ship' or 'ing' or 'er' or 'ers' or 's' or 'ly' or 'ment' or 'al' or 'ed' or 'ance' or 'ful' or 'ism' or 'liness'):
                 l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|s|ers|ment|al|ed|ance|ful|ism|liness)$','',w))
                 
+            else:
+                l.append(w)
+                
         return l
 #Arya's Part	
     @dispatch(str)
