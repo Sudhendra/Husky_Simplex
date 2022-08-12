@@ -171,7 +171,8 @@ class Clean:
         3) returns list of strings that have been stemmed.
         """
         l = []
-        inp = __modify(t)
+        ww = Word()
+        inp = ww.tokenize(t)
         for w in inp:
             if w.endswith('ical'):
                 l.append(w.replace('ical','ic'))
