@@ -62,8 +62,8 @@ def test_WordClassString(sample1):
     'transformation.', 'The', 'neighbours', 'got%£', 'some', 'pizza,', 'enjoying', 'it', 'without', 'electrical', 'assistance..........']
     expectedCount1 = [['She', 1], ['is', 1], ['a', 1], ['good', 1], ['person,', 1], ['and', 1], ['she', 1], ['loves', 1], ['pizza@#$%,', 1], ["that's", 1], ['probably', 1], 
     ['because', 1], ['of', 1], ['her', 1], ['intestinal^*&', 1], ['prerogatory', 1], ['transformation.', 1], ['The', 1], ['neighbours', 1], ['got%£', 1], ['some', 1], ['pizza,', 1], ['enjoying', 1], ['it', 1], ['without', 1], ['electrical', 1], ['assistance..........', 1]]
-    expectedStopW1 = [['good', 'person,', 'loves', 'pizza@#$%,', "that's", 'probably', 'intestinal^*&', 'prerogatory', 'transformation'], ['neighbours', 'got%£', 'pizza,', 'enjoying', 'electrical', 'assistance']]
-    expectedJoinW1 = ["good person, loves pizza@#$%, that's probably intestinal^*& prerogatory transformation", 'neighbours got%£ pizza, enjoying electrical assistance']
+    expectedStopW1 = [['good', 'person,', 'loves', 'pizza@#$%,', "that's", 'probably', 'intestinal^*&', 'prerogatory', 'transformation.', 'neighbours', 'got%£', 'pizza,', 'enjoying', 'electrical', 'assistance..........']]
+    expectedJoinW1 = ["good person, loves pizza@#$%, that's probably intestinal^*& prerogatory transformation. neighbours got%£ pizza, enjoying electrical assistance.........."]
     word = Word(sample1)
     assert word.tokenize() == expectedTokens1
     assert word.word_counter() == expectedCount1
@@ -99,7 +99,7 @@ def test_WordClassHelper(sample1):
 
 if __name__ == "__main__":  
     c = Clean()
-    sample = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance..........'
+    sample = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."
     print('Sample input:', '\t', sample)
     print('\n')
     
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     # w = w.join_stopwords()
     # print('Removed stopwords from input --','\t',w) 
     res_vector = count_vector_testing(out)
-    if result == None:
+    if res_vector == None:
         print("Count Vector Method Works, moving forward to Bag of Words")
     result = Bag_of_Words_testing(c)
     if result == None:

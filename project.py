@@ -164,15 +164,15 @@ class Clean:
 
         return s
 
-    def stem(t):
+    def stem(self,t):
         """
         1) To remove tense and grammatical suffixes from words.
         2) t: A list of strings. Input parameter.
         3) returns list of strings that have been stemmed.
         """
         l = []
-        ww = Word()
-        inp = ww.tokenize(t)
+        ww = Word(t)
+        inp = ww.tokenize()
         for w in inp:
             if w.endswith('ical'):
                 l.append(w.replace('ical','ic'))
