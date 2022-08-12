@@ -99,6 +99,26 @@ def test_WordClassHelper(sample1):
 
     assert word[0].extend_words('extended') == extendedWords
     assert word[1].remove_words('afterwards') == removedWords
+   
+def test_BOW_fit_transform(sample_input):
+    bow_ftransform = Vectorizer(sample_input)
+    test = np.array([[1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                     [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+                     [0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0],
+                     [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+                     [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
+                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,],
+                     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]])
+    result = np.testing.assert_array_equal(bow_ftransform.BOW_fit_transform(),test)
+    return result
+
+def test_BOW_transform(sample_input, transfrom_input):
+    bow_ftransform = Vectorizer(sample_input)
+    test2 = np.array([[1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0],
+                      [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0],
+                      [0 ,0 ,0 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0]])
+    result = np.testing.assert_array_equal(bow_ftransform.BOW_transform(transfrom_input),test2)
+    return result
 
 if __name__ == "__main__":  
     c = Clean()
@@ -129,16 +149,22 @@ if __name__ == "__main__":
     print('Removed stop words:', '\t', f)
     print('\n')
    
-    ''' below part will be operational only when suddhendras code is complete,
-        also input arr will be changed accordingly'''
-    # w = Word(c)
-    # w = w.join_stopwords()
-    # print('Removed stopwords from input --','\t',w) 
     if count_vector_testing(out) == None:
         print("Count Vector Method Works, moving forward to Bag of Words")
-    result = Bag_of_Words_testing(out)
+        print('\n')
+    
+    sample = ['She loves pizza%&# pizza is delicious^^$','She is a good person','good people are the best are','she loves**** dogs',
+              'dogs are loyal friends^^^ of human',' she is human&@','therefore%^&$ she loves dog']
+    result = test_BOW_fit_transform(sample)
     if result == None:
-        print("Everything is correct")  
+        print("Bog of Words Fit Transform method is working")
+        print('\n')
+        
+    sample2 = ['she loves to drink cola', 'Drinking a lot of cola is bad for health', 'cola has excessive amounts of caffeine and sugar which is not good for humans']
+    result2 = test_BOW_transform(sample,sample2)
+    if result2 == None:
+        print("Bog of Words Transform method works")
+        print('\n')
         
     TfIdf_fTransform_result = TfIdf_fTransform_testing(out)
     if TfIdf_fTransform_result == "Pass":
@@ -146,4 +172,4 @@ if __name__ == "__main__":
         
     TfIdf_transform_result = TfIdf_transform_testing(out)
     if TfIdf_transform_result == "Pass":
-        print("Tf-Idf values are correct")        
+        print("Tf-Idf values are correct")       
