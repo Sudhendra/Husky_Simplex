@@ -215,8 +215,8 @@ class Clean:
             elif w.endswith('alize'):
                 l.append(w.replace('alize','al'))
 
-            elif w.endswith('ence') or w.endswith('er') or w.endswith('ize') or w.endswith('ent') or w.endswith('ible') or w.endswith('able') or w.endswith('ance') or w.endswith('ness') or w.endswith('less') or w.endswith('ship') or w.endswith('ing') or w.endswith('er') or w.endswith('ers')  or w.endswith('ly') or w.endswith('ment') or w.endswith('al') or w.endswith('ed') or w.endswith('ance') or w.endswith('ful') or w.endswith('ism') or w.endswith('liness'):
-                l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|ers|ment|al|ed|ance|ful|ism|liness)$','',w))
+            elif w.endswith('ence') or w.endswith('er') or w.endswith('ize') or w.endswith('ent') or w.endswith('ible') or w.endswith('able') or w.endswith('ance') or w.endswith('ness') or w.endswith('less') or w.endswith('ship') or w.endswith('ing') or w.endswith('er') or w.endswith('ers')  or w.endswith('ly') or w.endswith('ment') or w.endswith('al') or w.endswith('ed') or w.endswith('ance') or w.endswith('ful') or w.endswith('ism') or w.endswith('liness') or w.endswith('s'):
+                l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|ers|ment|al|ed|ance|ful|ism|liness|s)$','',w))
                 
             else:
                 l.append(w)
@@ -275,14 +275,15 @@ class Clean:
             elif w.endswith('alize'):
                 l.append(w.replace('alize','al'))
 
-            elif w.endswith('ence') or w.endswith('er') or w.endswith('ize') or w.endswith('ent') or w.endswith('ible') or w.endswith('able') or w.endswith('ance') or w.endswith('ness') or w.endswith('less') or w.endswith('ship') or w.endswith('ing') or w.endswith('er') or w.endswith('ers')  or w.endswith('ly') or w.endswith('ment') or w.endswith('al') or w.endswith('ed') or w.endswith('ance') or w.endswith('ful') or w.endswith('ism') or w.endswith('liness'):
-                l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|ers|ment|al|ed|ance|ful|ism|liness)$','',w))
+            elif w.endswith('ence') or w.endswith('er') or w.endswith('ize') or w.endswith('ent') or w.endswith('ible') or w.endswith('able') or w.endswith('ance') or w.endswith('ness') or w.endswith('less') or w.endswith('ship') or w.endswith('ing') or w.endswith('er') or w.endswith('ers')  or w.endswith('ly') or w.endswith('ment') or w.endswith('al') or w.endswith('ed') or w.endswith('ance') or w.endswith('ful') or w.endswith('ism') or w.endswith('liness') or w.endswith('s'):
+                l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|ers|ment|al|ed|ance|ful|ism|liness|s)$','',w))
                 
             else:
                 l.append(w)
                 
         s = " "
-        s.join(l)
+        for i in l:
+            s = s.join(i)
                 
         return s
     
