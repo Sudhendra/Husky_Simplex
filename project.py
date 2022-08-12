@@ -232,7 +232,7 @@ class Clean:
         """
         inp = t.split()
         l = []
-        for w in t:
+        for w in inp:
             if w.endswith('ical'):
                 l.append(w.replace('ical','ic'))
 
@@ -281,7 +281,8 @@ class Clean:
             else:
                 l.append(w)
                 
-        return " ".join(l)
+        s = " ".join(l)
+        return s
     
 #Arya's Part	
     @dispatch(str)
