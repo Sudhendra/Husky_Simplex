@@ -151,15 +151,15 @@ if __name__ == "__main__":
         print("Count Vector Method Works, moving forward to Bag of Words")
         print('\n')
     
-    sample = ['She loves pizza%&# pizza is delicious^^$','She is a good person','good people are the best are','she loves**** dogs',
+    BOW_fit_sample = ['She loves pizza%&# pizza is delicious^^$','She is a good person','good people are the best are','she loves**** dogs',
               'dogs are loyal friends^^^ of human',' she is human&@','therefore%^&$ she loves dog']
-    result = test_BOW_fit_transform(sample)
+    result = test_BOW_fit_transform(BOW_fit_sample)
     if result == None:
         print("Bog of Words Fit Transform method is working")
         print('\n')
         
-    sample2 = ['she loves to drink cola', 'Drinking a lot of cola is bad for health', 'cola has excessive amounts of caffeine and sugar which is not good for humans']
-    result2 = test_BOW_transform(sample,sample2)
+    BOW_transfrom_sample = ['she loves to drink cola', 'Drinking a lot of cola is bad for health', 'cola has excessive amounts of caffeine and sugar which is not good for humans']
+    result2 = test_BOW_transform(BOW_fit_sample,BOW_transfrom_sample)
     if result2 == None:
         print("Bog of Words Transform method works")
         print('\n')
