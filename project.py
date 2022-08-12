@@ -276,11 +276,14 @@ class Vectorizer:
         elif type(self.input_str) == str:
             self.input_str = self.input_str.split(". ")
             
-        self.input_str = BOW_remove_stopwords_punctuation(self.input_str)
+        if(self.input_str == None):
+            pass
+        else:     
+            self.input_str = BOW_remove_stopwords_punctuation(self.input_str)
         
-        word = Word(self.input_str)
-        List_Keys_values = word.word_counter()
-        self.vocab  = np.array(List_Keys_values)[:,0]
+            word = Word(self.input_str)
+            List_Keys_values = word.word_counter()
+            self.vocab  = np.array(List_Keys_values)[:,0]
             
     def BOW_fit_transform(self):
         """
@@ -517,8 +520,9 @@ class Vectorizer:
                 
             else:
                 test_str = test_str.split(". ")
-
-
+                
+        test_str = BOW_remove_stopwords_punctuation(test_str)    
+        
         wordDict = []
         tf = []
         idf = {}  
