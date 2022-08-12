@@ -281,11 +281,7 @@ class Clean:
             else:
                 l.append(w)
                 
-        s = " "
-        for i in l:
-            s = s.join(i)
-                
-        return s
+        return " ".join(l)
     
 #Arya's Part	
     @dispatch(str)
