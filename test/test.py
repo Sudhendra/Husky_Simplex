@@ -20,11 +20,10 @@ def count_vector_testing(data):
     return result
 
 def TfIdf_fTransform_testing(input_str):  
-    
+  
     tfIdf_ftransform = Vectorizer(input_str)
-    testList = [{'best': 0.0, 'pizza': 0.07952020911994373, 'people': 0.0, 'good': 0.0, 'loves': 0.07952020911994373, 'person': 0.0, 'delicious': 0.07952020911994373}, 
-        {'best': 0.0, 'pizza': 0.0, 'people': 0.0, 'good': 0.03521825181113625, 'loves': 0.0, 'person': 0.09542425094393249, 'delicious': 0.0}, 
-        {'best': 0.07952020911994373, 'pizza': 0.0, 'people': 0.07952020911994373, 'good': 0.029348543175946873, 'loves': 0.0, 'person': 0.0, 'delicious': 0.0}]
+    testList = [{'assistance': 0.0, 'electrical': 0.0, 'enjoying': 0.0, 'good': 0.03344777729599791, 'got': 0.0, 'intestinal': 0.03344777729599791, 'loves': 0.03344777729599791, 'neighbours': 0.0, 'person': 0.03344777729599791, 'pizza': 0.0, 'prerogatory': 0.03344777729599791, 'probably': 0.03344777729599791, 'thats': 0.03344777729599791, 'transformation': 0.03344777729599791},
+     {'assistance': 0.050171665943996864, 'electrical': 0.050171665943996864, 'enjoying': 0.050171665943996864, 'good': 0.0, 'got': 0.050171665943996864, 'intestinal': 0.0, 'loves': 0.0, 'neighbours': 0.050171665943996864, 'person': 0.0, 'pizza': 0.0, 'prerogatory': 0.0, 'probably': 0.0, 'thats': 0.0, 'transformation': 0.0}]
     sortedDict = []    
     for d in testList:            
         sortedDict.append(dict( sorted(d.items(), key=lambda x: x[0].lower()) )) 
@@ -42,9 +41,7 @@ def TfIdf_fTransform_testing(input_str):
 def TfIdf_transform_testing(input_str):  
 
     tfIdf_ftransform = Vectorizer()
-    testList = [{'best': 0.0, 'pizza': 0.07952020911994373, 'people': 0.0, 'good': 0.0, 'loves': 0.07952020911994373, 'person': 0.0, 'delicious': 0.07952020911994373}, 
-        {'best': 0.0, 'pizza': 0.0, 'people': 0.0, 'good': 0.03521825181113625, 'loves': 0.0, 'person': 0.09542425094393249, 'delicious': 0.0}, 
-        {'best': 0.07952020911994373, 'pizza': 0.0, 'people': 0.07952020911994373, 'good': 0.029348543175946873, 'loves': 0.0, 'person': 0.0, 'delicious': 0.0}]
+    testList = [{'assistance': 0.0, 'electrical': 0.0, 'enjoying': 0.0, 'good': 0.03344777729599791, 'got': 0.0, 'intestinal': 0.03344777729599791, 'loves': 0.03344777729599791, 'neighbours': 0.0, 'person': 0.03344777729599791, 'pizza': 0.0, 'prerogatory': 0.03344777729599791, 'probably': 0.03344777729599791, 'thats': 0.03344777729599791, 'transformation': 0.03344777729599791}, {'assistance': 0.050171665943996864, 'electrical': 0.050171665943996864, 'enjoying': 0.050171665943996864, 'good': 0.0, 'got': 0.050171665943996864, 'intestinal': 0.0, 'loves': 0.0, 'neighbours': 0.050171665943996864, 'person': 0.0, 'pizza': 0.0, 'prerogatory': 0.0, 'probably': 0.0, 'thats': 0.0, 'transformation': 0.0}]
     sortedDict = []    
     for d in testList:            
         sortedDict.append(dict( sorted(d.items(), key=lambda x: x[0].lower()) )) 
@@ -167,10 +164,10 @@ if __name__ == "__main__":
         print("Bog of Words Transform method works")
         print('\n')
         
-    TfIdf_fTransform_result = TfIdf_fTransform_testing(out)
+    TfIdf_fTransform_result = TfIdf_fTransform_testing(sample)
     if TfIdf_fTransform_result == "Pass":
         print("Tf-Idf values are correct")
         
-    TfIdf_transform_result = TfIdf_transform_testing(out)
+    TfIdf_transform_result = TfIdf_transform_testing(sample)
     if TfIdf_transform_result == "Pass":
         print("Tf-Idf values are correct")       
