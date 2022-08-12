@@ -225,6 +225,74 @@ class Clean:
                 l.append(w)
                 
         return l
+    
+    @dispatch(str)
+    def stem(t):
+        """
+        1) To remove tense and grammatical suffixes from words.
+        2) t: string. Input parameter.
+        3) returns string that has been stemmed.
+        """
+        inp = t.split()
+        l = []
+        for w in t:
+            if w.endswith('ical'):
+                l.append(w.replace('ical','ic'))
+
+            elif w.endswith('ies'):
+                l.append(w.replace('ies','y'))
+
+            elif w.endswith('eed'):
+                l.append(w.replace('eed','ee'))
+
+            elif w.endswith('sses'):
+                l.append(w.replace('sses','ss'))
+
+            elif w.endswith('ization'):
+                l.append(w.replace('ization','ize'))
+
+            elif w.endswith('ation'):
+                l.append(w.replace('ation','ate'))
+
+            elif w.endswith('or'):
+                l.append(w.replace('or','e'))
+
+            elif w.endswith('iveness'):
+                l.append(w.replace('iveness','ive'))
+
+            elif w.endswith('fulness'):
+                l.append(w.replace('fulness','ful'))
+
+            elif w.endswith('ousness'):
+                l.append(w.replace('ousness','ous'))
+
+            elif w.endswith('ality'):
+                l.append(w.replace('ality','al'))
+
+            elif w.endswith('ivity') or w.endswith('bility') or w.endswith('ability'):
+                l.append(re.sub('(ivity|ability|bility)$','',w))
+
+            elif w.endswith('cacy'):
+                l.append(w.replace('cacy','cate'))
+
+            elif w.endswith('icity'):
+                l.append(w.replace('icity','e'))
+
+            elif w.endswith('alize'):
+                l.append(w.replace('alize','al'))
+
+            elif w.endswith('ence') or w.endswith('er') or w.endswith('ize') or w.endswith('ent') or w.endswith('ible') or w.endswith('able') or w.endswith('ance') or w.endswith('ness') or w.endswith('less') or w.endswith('ship') or w.endswith('ing') or w.endswith('er') or w.endswith('ers')  or w.endswith('ly') or w.endswith('ment') or w.endswith('al') or w.endswith('ed') or w.endswith('ance') or w.endswith('ful') or w.endswith('ism') or w.endswith('liness'):
+                l.append(re.sub('(ence|er|ize|ent|ible|able|ance|ness|less|ship|ing|ly|ers|ment|al|ed|ance|ful|ism|liness)$','',w))
+                
+            else:
+                l.append(w)
+                
+        s = ""
+        for i in l:
+            s = s+" "+i
+                
+        return s
+    
 #Arya's Part	
     @dispatch(str)
     def remove_symbol(st):
