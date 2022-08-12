@@ -191,9 +191,6 @@ class Clean:
             elif w.endswith('ation'):
                 l.append(w.replace('ation','ate'))
 
-            elif w.endswith('or'):
-                l.append(w.replace('or','e'))
-
             elif w.endswith('iveness'):
                 l.append(w.replace('iveness','ive'))
 
@@ -253,9 +250,6 @@ class Clean:
 
             elif w.endswith('ation'):
                 l.append(w.replace('ation','ate'))
-
-            elif w.endswith('or'):
-                l.append(w.replace('or','e'))
 
             elif w.endswith('iveness'):
                 l.append(w.replace('iveness','ive'))
