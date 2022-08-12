@@ -281,9 +281,8 @@ class Clean:
             else:
                 l.append(w)
                 
-        s = ""
-        for i in l:
-            s = s+" "+i
+        s = " "
+        s.join(l)
                 
         return s
     
