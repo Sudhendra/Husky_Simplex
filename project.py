@@ -5,7 +5,7 @@ import re
 from collections import Counter
 from scipy.sparse import csr_matrix
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer
+import math
 
 # Sudhendra's part
 def __modify(input_str):
@@ -345,7 +345,7 @@ class Vectorizer:
         return array
     
 #Arya's Part
-    def cvfit(data):
+    def cvfit(self,data):
         unique = set()
         for sent in data:
             for word in sent.split(' '):
@@ -358,15 +358,15 @@ class Vectorizer:
         return vocab
 
 
-    def cv_trans(data):
+    def cv_trans(self):
         """
         Creates an matrix containing count of words in a string, i.e Vectorization of text based on term frequency
         Input: A List of strings
         Returns: A matrix containing vectorization of text, where no of rows are the sentences and columns are unique words present in all the Strings.
         Usage: ObjectName.custom_trans(data), where Vectorize is instance of class
         """
-        data = [x.lower() for x in data]
-        vocab = cvfit(data)
+        data = [x.lower() for x in self.input_str]
+        vocab = self.cvfit(data)
         row,col,val = [],[],[]
         for ind,sent in enumerate(data):
             count_word = dict(Counter(sent.split(' ')))
@@ -396,11 +396,13 @@ class Vectorizer:
         word = Word(combCorpus)
         corpus_split = word.tokenize()       
         corpus_processed = word.remove_stopwords()
+        corpus_processed = np.array(corpus_processed).flatten()
         corpus_processed = set(corpus_processed)
 
         sent = Word(corpus)
         sentSplit = sent.tokenize()       
         sentProcessed = sent.remove_stopwords()
+        sentProcessed = np.array(sentProcessed).flatten()
         sentProcessed = set(sentProcessed)
 
         wordDict = dict.fromkeys(corpus_processed, 0)
