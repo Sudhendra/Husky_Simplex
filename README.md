@@ -23,3 +23,6 @@ grammatical structure.
 8. Count vectorization - Vectorization of text based on term frequency.
 9. TF-IDF vectorization - Vectorization of text based on term frequency in relation to
 document frequency
+
+# Installation
+pip install simplex
