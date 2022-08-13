@@ -1,4 +1,4 @@
-# Simplex
+# Husky_Simplex
 Text processing package
 
 Data preprocessing is the first and most essential stage in developing a machine learning
@@ -25,9 +25,9 @@ grammatical structure.
 document frequency
 
 ## Installation
-``` pip install simplex ```
+``` pip install husky_simplex ```
 
 or 
-``` git clone https://github.com/Sudhendra/Simplex.git ```
-``` cd Simplex ```
+``` git clone https://github.com/Sudhendra/Husky_Simplex.git ```
+``` cd Husky_Simplex ```
 ``` pip install - r requirements.txt ``
