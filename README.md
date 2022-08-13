@@ -27,7 +27,7 @@ document frequency
 ## Installation
 ``` pip install husky_simplex ```
 
-or 
+or <br />
 ``` git clone https://github.com/Sudhendra/Husky_Simplex.git ```<br />
 ``` cd Husky_Simplex ```<br />
 ``` pip install - r requirements.txt ```
