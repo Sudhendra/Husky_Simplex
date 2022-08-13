@@ -310,26 +310,39 @@ class Clean:
             pattern = r"""[^A-Za-z0-9 ,.']+"""
             st1.append(re.sub(pattern,'',st[x]))
         return st1
+    
 ## Nikhils Part 
-def BOW_remove_stopwords_punctuation(input_str):
+def Vectorizer_Clean(input_str,stem = None):
     """
-    Removes symbol, punctuation and stopwords from input of calss vectorization
-    Input: takes list as input 
-    returns: A list of string without punctuation, symbol and stopwords
+    Removes symbol, punctuation, stopwords and also does stemming of the input if user passes "yes" to stem variable in calss vectorization
+    Variables 1] Input_str: takes list as input 
+              2] Stem takes string value in either 'yes' or 'no'. Default value 'None' is nothing is passed
+    returns: A list of string without punctuation, symbol and stopwords and also stemmed depending on input 
     """  
     c = Clean()
     symbol_removed = c.remove_symbol(input_str)
     punctuation_removed = c.remove_punctuation(symbol_removed)
     
     w = Word(punctuation_removed)
-    stopwords_removed = w.join_stopwords()  
+    stopwords_removed = w.join_stopwords() 
+    
+    if stem == 'yes':
+        stemed_list=[]
+        x = Clean()
+        
+        for sentence in stopwords_removed:
+            s = x.stem(sentence)
+            stemed_list.append(s)
+            
+        return stemed_list
     
     return stopwords_removed 
 
 class Vectorizer:
-    def __init__(self, input_str = None):
+    def __init__(self, input_str = None, stem = None):
         
         self.input_str = input_str
+        self.stem = stem
         
         if type(self.input_str) == tuple:
             self.input_str = list(self.input_str)
@@ -339,8 +352,12 @@ class Vectorizer:
             
         if(self.input_str == None):
             pass
-        else:     
-            self.input_str = BOW_remove_stopwords_punctuation(self.input_str)
+        else:    
+            if self.stem != None:
+                self.stem = self.stem.lower()
+                self.input_str = Vectorizer_Clean(self.input_str, self.stem)
+            else:    
+                self.input_str = Vectorizer_Clean(self.input_str)
         
             word = Word(self.input_str)
             List_Keys_values = word.word_counter()
@@ -349,7 +366,8 @@ class Vectorizer:
     def BOW_fit_transform(self):
         """
         Creates a matrix with strings as rows and words as columns. This array would consist of frequency of words present in each string. 
-        Before creating matrix the input will be passsed through BOW_remove_stopwords_punctuation function to remove symbols, punctuations and stopwords.
+        Before creating matrix the input will be passsed through Vectorizer_Clean function to remove symbols, punctuations, stopwords and also stemming will be done on input 
+        if user passes stem input while intizialing class Vectorizer.
         returns: A array with frequency of words.
         Usage: ObjectName.BOW_fit_transform() where Vectorize is an instance of Vectorizer class.
         """
@@ -377,7 +395,7 @@ class Vectorizer:
     def BOW_transform(self, test_str):        
         """
         Creates a matrix with strings as rows and words as columns.The list of words is generated using the values passed while creating the object.
-        Before creating matrix the input will be passsed through BOW_remove_stopwords_punctuation function to remove symbols, punctuations and stopwords.
+        Before creating matrix the input will be passsed through Vectorizer_Clean function to remove symbols, punctuations, stopwords and also to stem input depending on the user's choice.
         This array would consist of frequency of words which is present in the list of words and input string. 
         Input - A string of list 
         returns: A array with frequency of words.
@@ -391,8 +409,12 @@ class Vectorizer:
                 
             else:
                 test_str = test_str.split(". ")
-                
-        test_str = BOW_remove_stopwords_punctuation(test_str)
+        
+        if self.stem == 'yes':
+            test_str = Vectorizer_Clean(test_str,self.stem)
+            
+        else:            
+            test_str = Vectorizer_Clean(test_str)
                 
         array = np.zeros((len(test_str),len(self.vocab)), dtype = int)
         i = 0
@@ -582,7 +604,7 @@ class Vectorizer:
             else:
                 test_str = test_str.split(". ")
                 
-        test_str = BOW_remove_stopwords_punctuation(test_str)    
+        test_str = Vectorizer_Clean(test_str)    
         
         wordDict = []
         tf = []
