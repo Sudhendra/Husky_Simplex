@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "Simplex"
-version = "0.0.1"
+name = "husky_simplex"
+version = "0.0.2"
 authors = [
   { name="Sudhendra Kambhamettu, Nikhil, Karan, Arya, Harshal", email="sudhendrakambhamettu@gmail.com" },
 ]
