@@ -24,5 +24,5 @@ grammatical structure.
 9. TF-IDF vectorization - Vectorization of text based on term frequency in relation to
 document frequency
 
-# Installation
+## Installation
 pip install simplex
