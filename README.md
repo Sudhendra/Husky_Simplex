@@ -26,3 +26,8 @@ document frequency
 
 ## Installation
 ``` pip install simplex ```
+
+or 
+``` git clone https://github.com/Sudhendra/Simplex.git ```
+``` cd Simplex ```
+``` pip install - r requirements.txt ``
