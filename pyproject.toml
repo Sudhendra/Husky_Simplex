@@ -19,5 +19,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/Sudhendra/Simplex"
-"Download URL" = 'https://github.com/Sudhendra/Simplex/archive/refs/tags/0.0.1.tar.gz'
+"Homepage" = "https://github.com/Sudhendra/Husky_Simplex"
+"Download URL" = 'https://github.com/Sudhendra/Husky_Simplex/archive/refs/tags/0.0.3.tar.gz'
