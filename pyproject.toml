@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "Simplex"
+version = "0.0.1"
+authors = [
+  { name="Sudhendra Kambhamettu, Nikhil, Karan, Arya, Harshal", email="sudhendrakambhamettu@gmail.com" },
+]
+description = "A text pre-processing package"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Sudhendra/Simplex"
+"Download URL" = 'https://github.com/Sudhendra/Simplex/archive/refs/tags/0.0.1.tar.gz'
