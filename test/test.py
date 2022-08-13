@@ -2,17 +2,6 @@ from project import *
 from copy import copy
 import numpy as np
 
-def Bag_of_Words_testing(b):  
-    bow_ftransform = Vectorizer(b)
-    ''' 
-    arr = np.array([[1, 1 ,1 ,1 ,1, 0, 0, 0, 0, 0, 0, 0],
-                    [1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0],
-                    [0 ,0 ,0, 0 ,0 ,0 ,1 ,0 ,1 ,1 ,1 ,1]]) 
-    '''
-    arr = np.array([[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])
-    result = np.testing.assert_array_equal(bow_ftransform.BOW_fit_transform(),arr)
-    return result
-
 def count_vector_testing(data):
     bow_vector = Vectorizer(data)
     out = np.array([[1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1]])
@@ -99,22 +88,22 @@ def test_WordClassHelper(sample1):
     assert word[1].remove_words('afterwards') == removedWords
    
 def test_BOW_fit_transform(sample_input):
-    bow_ftransform = Vectorizer(sample_input)
-    test = np.array([[1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                     [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-                     [0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0],
-                     [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-                     [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
-                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,],
-                     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]])
+    bow_ftransform = Vectorizer(sample_input,'yes')
+    test = np.array([[1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                     [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+                     [0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0],
+                     [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+                     [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                     [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]])
     result = np.testing.assert_array_equal(bow_ftransform.BOW_fit_transform(),test)
     return result
 
 def test_BOW_transform(sample_input, transfrom_input):
-    bow_ftransform = Vectorizer(sample_input)
-    test2 = np.array([[1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0],
-                      [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0],
-                      [0 ,0 ,0 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0]])
+    bow_ftransform = Vectorizer(sample_input,'yes')
+    test2 = np.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+                      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1]])
     result = np.testing.assert_array_equal(bow_ftransform.BOW_transform(transfrom_input),test2)
     return result
 
@@ -170,4 +159,4 @@ if __name__ == "__main__":
         
     TfIdf_transform_result = TfIdf_transform_testing(sample)
     if TfIdf_transform_result == "Pass":
-        print("Tf-Idf values are correct")       
+        print("Tf-Idf values are correct")
