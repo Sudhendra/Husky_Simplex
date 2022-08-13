@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name = 'Simples',
+    name = 'Simplex',
     packages = ['Simplex'],
     version = '0.0.1',  # Ideally should be same as your GitHub release tag varsion
     description = 'A text pre-processing package',
