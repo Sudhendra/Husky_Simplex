@@ -25,4 +25,4 @@ grammatical structure.
 document frequency
 
 ## Installation
-pip install simplex
+``` pip install simplex ```
