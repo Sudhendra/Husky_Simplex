@@ -25,6 +25,9 @@ grammatical structure.
 9. TF-IDF vectorization - Vectorization of text based on term frequency in relation to
 document frequency
 
+## Code Usage
+
+
 ## Installation
 ``` pip install husky_simplex ```
 
