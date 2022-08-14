@@ -27,6 +27,20 @@ document frequency
 
 ## Code Usage
 
+### Class Word (Tokenize)
+sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."
+word  = Word(sample_input)
+print(word.tokenize()) 
+
+### Class Clean (remove_punctuation)
+sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."
+clean  = Clean()
+print(clean.remove_punctuation(sample_input))
+
+### Class Vectorizer (BOW_fit_transform)
+sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."
+vectorize  = Vectorizer(sample_input)
+print(vectorize.BOW_fit_transform())
 
 ## Installation
 ``` pip install husky_simplex ```
