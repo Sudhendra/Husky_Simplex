@@ -28,18 +28,18 @@ document frequency
 ## Code Usage
 
 ### Class Word (Tokenize)
-sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."
-word  = Word(sample_input)
-print(word.tokenize()) 
+sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."<br />
+word  = Word(sample_input)<br />
+print(word.tokenize())
 
 ### Class Clean (remove_punctuation)
-sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."
-clean  = Clean()
+sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."<br />
+clean  = Clean()<br />
 print(clean.remove_punctuation(sample_input))
 
 ### Class Vectorizer (BOW_fit_transform)
-sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."
-vectorize  = Vectorizer(sample_input)
+sample_input = "She is a good person, and she loves pizza@#$%, that's probably because of her intestinal^*& prerogatory transformation. The neighbours got%£ some pizza, enjoying it without electrical assistance.........."<br />
+vectorize  = Vectorizer(sample_input)<br />
 print(vectorize.BOW_fit_transform())
 
 ## Installation
