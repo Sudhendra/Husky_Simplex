@@ -1,5 +1,5 @@
 # Husky_Simplex
-Text processing package
+Custom Text processing package
 
 Data preprocessing is the first and most essential stage in developing a machine learning
 model as it affects the overall accuracy and efficiency of the outcome. Ordinary text data
